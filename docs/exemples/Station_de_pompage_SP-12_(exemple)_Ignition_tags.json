@@ -1,0 +1,649 @@
+{
+  "name": "Station_de_pompage_SP-12_(exemple)",
+  "tagType": "Folder",
+  "tags": [
+    {
+      "name": "Bâche",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "Pompes",
+          "tagType": "Folder",
+          "tags": [
+            {
+              "name": "P101_MAR",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]IX0.0",
+              "dataType": "Boolean",
+              "documentation": "Pompe P101 en marche",
+              "readOnly": true
+            },
+            {
+              "name": "P101_DEF",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]IX0.1",
+              "dataType": "Boolean",
+              "documentation": "Pompe P101 défaut thermique",
+              "readOnly": true,
+              "alarms": [
+                {
+                  "name": "Alarme",
+                  "mode": "Equality",
+                  "setpointA": 1,
+                  "priority": "High",
+                  "label": "Pompe P101 défaut thermique"
+                }
+              ]
+            },
+            {
+              "name": "P101_AUTO",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]IX0.2",
+              "dataType": "Boolean",
+              "documentation": "Pompe P101 en automatique",
+              "readOnly": true
+            },
+            {
+              "name": "P102_MAR",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]IX0.3",
+              "dataType": "Boolean",
+              "documentation": "Pompe P102 en marche",
+              "readOnly": true
+            },
+            {
+              "name": "P102_DEF",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]IX0.4",
+              "dataType": "Boolean",
+              "documentation": "Pompe P102 défaut thermique",
+              "readOnly": true,
+              "alarms": [
+                {
+                  "name": "Alarme",
+                  "mode": "Equality",
+                  "setpointA": 1,
+                  "priority": "High",
+                  "label": "Pompe P102 défaut thermique"
+                }
+              ]
+            },
+            {
+              "name": "P102_AUTO",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]IX0.5",
+              "dataType": "Boolean",
+              "documentation": "Pompe P102 en automatique",
+              "readOnly": true
+            },
+            {
+              "name": "P101_CMD",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]QX0.0",
+              "dataType": "Boolean",
+              "documentation": "Commande pompe P101"
+            },
+            {
+              "name": "P102_CMD",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]QX0.1",
+              "dataType": "Boolean",
+              "documentation": "Commande pompe P102"
+            },
+            {
+              "name": "IT_101",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]II70",
+              "dataType": "Float4",
+              "documentation": "Intensité pompe P101",
+              "engUnit": "A",
+              "engLow": 0,
+              "engHigh": 40,
+              "scaleMode": "Linear",
+              "rawLow": 0,
+              "rawHigh": 27648,
+              "scaledLow": 0,
+              "scaledHigh": 40,
+              "readOnly": true,
+              "alarms": [
+                {
+                  "name": "H",
+                  "mode": "AboveValue",
+                  "setpointA": 32,
+                  "priority": "Medium",
+                  "label": "Intensité pompe P101 : seuil haut (32 A)",
+                  "deadband": 0.4,
+                  "deadbandMode": "Absolute"
+                }
+              ]
+            },
+            {
+              "name": "IT_102",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]II72",
+              "dataType": "Float4",
+              "documentation": "Intensité pompe P102",
+              "engUnit": "A",
+              "engLow": 0,
+              "engHigh": 40,
+              "scaleMode": "Linear",
+              "rawLow": 0,
+              "rawHigh": 27648,
+              "scaledLow": 0,
+              "scaledHigh": 40,
+              "readOnly": true,
+              "alarms": [
+                {
+                  "name": "H",
+                  "mode": "AboveValue",
+                  "setpointA": 32,
+                  "priority": "Medium",
+                  "label": "Intensité pompe P102 : seuil haut (32 A)",
+                  "deadband": 0.4,
+                  "deadbandMode": "Absolute"
+                }
+              ]
+            },
+            {
+              "name": "SC_101",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]QI64",
+              "dataType": "Float4",
+              "documentation": "Consigne de vitesse variateur P101",
+              "engUnit": "%",
+              "engLow": 0,
+              "engHigh": 100,
+              "scaleMode": "Linear",
+              "rawLow": 0,
+              "rawHigh": 27648,
+              "scaledLow": 0,
+              "scaledHigh": 100
+            },
+            {
+              "name": "TPS_P101",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]MREAL100",
+              "dataType": "Float4",
+              "documentation": "Temps de marche cumulé P101",
+              "engUnit": "h",
+              "readOnly": true
+            },
+            {
+              "name": "TPS_P102",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]MREAL104",
+              "dataType": "Float4",
+              "documentation": "Temps de marche cumulé P102",
+              "engUnit": "h",
+              "readOnly": true
+            },
+            {
+              "name": "NB_DEM_P101",
+              "tagType": "AtomicTag",
+              "valueSource": "opc",
+              "opcServer": "Ignition OPC UA Server",
+              "opcItemPath": "ns=1;s=[SP12_API1]DB10,DI0",
+              "dataType": "Int4",
+              "documentation": "Nombre de démarrages P101",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "name": "LSHH_101",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]IX0.6",
+          "dataType": "Boolean",
+          "documentation": "Niveau très haut bâche (poire)",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 1,
+              "priority": "Critical",
+              "label": "Niveau très haut bâche (poire)"
+            }
+          ]
+        },
+        {
+          "name": "LSLL_101",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]IX0.7",
+          "dataType": "Boolean",
+          "documentation": "Niveau très bas bâche (poire), contact NF",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 0,
+              "priority": "Critical",
+              "label": "Niveau très bas bâche (poire), contact NF"
+            }
+          ]
+        },
+        {
+          "name": "LT_101",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]II64",
+          "dataType": "Float4",
+          "documentation": "Niveau bâche de pompage",
+          "engUnit": "m",
+          "engLow": 0,
+          "engHigh": 5,
+          "scaleMode": "Linear",
+          "rawLow": 0,
+          "rawHigh": 27648,
+          "scaledLow": 0,
+          "scaledHigh": 5,
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "HH",
+              "mode": "AboveValue",
+              "setpointA": 4.4,
+              "priority": "Critical",
+              "label": "Niveau bâche de pompage : seuil très haut (4.4 m)",
+              "deadband": 0.05,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "H",
+              "mode": "AboveValue",
+              "setpointA": 3.8,
+              "priority": "Medium",
+              "label": "Niveau bâche de pompage : seuil haut (3.8 m)",
+              "deadband": 0.05,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "L",
+              "mode": "BelowValue",
+              "setpointA": 0.6,
+              "priority": "Medium",
+              "label": "Niveau bâche de pompage : seuil bas (0.6 m)",
+              "deadband": 0.05,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "LL",
+              "mode": "BelowValue",
+              "setpointA": 0.3,
+              "priority": "Critical",
+              "label": "Niveau bâche de pompage : seuil très bas (0.3 m)",
+              "deadband": 0.05,
+              "deadbandMode": "Absolute"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Armoire",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "ARU_ACT",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]IX1.0",
+          "dataType": "Boolean",
+          "documentation": "Arrêt d'urgence actionné",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 0,
+              "priority": "Critical",
+              "label": "Arrêt d'urgence actionné"
+            }
+          ]
+        },
+        {
+          "name": "ALIM_OK",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]IX1.1",
+          "dataType": "Boolean",
+          "documentation": "Présence tension 24 V",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 0,
+              "priority": "High",
+              "label": "Présence tension 24 V"
+            }
+          ]
+        },
+        {
+          "name": "KLAX_CMD",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]QX0.2",
+          "dataType": "Boolean",
+          "documentation": "Avertisseur sonore"
+        },
+        {
+          "name": "TT_130",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]II74",
+          "dataType": "Float4",
+          "documentation": "Température local pompes",
+          "engUnit": "°C",
+          "engLow": -20,
+          "engHigh": 60,
+          "scaleMode": "Linear",
+          "rawLow": 0,
+          "rawHigh": 27648,
+          "scaledLow": -20,
+          "scaledHigh": 60,
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "H",
+              "mode": "AboveValue",
+              "setpointA": 40,
+              "priority": "Medium",
+              "label": "Température local pompes : seuil haut (40 °C)",
+              "deadband": 0.8,
+              "deadbandMode": "Absolute"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Refoulement",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "PT_110",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]II66",
+          "dataType": "Float4",
+          "documentation": "Pression refoulement",
+          "engUnit": "bar",
+          "engLow": 0,
+          "engHigh": 16,
+          "scaleMode": "Linear",
+          "rawLow": 0,
+          "rawHigh": 27648,
+          "scaledLow": 0,
+          "scaledHigh": 16,
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "HH",
+              "mode": "AboveValue",
+              "setpointA": 12,
+              "priority": "Critical",
+              "label": "Pression refoulement : seuil très haut (12 bar)",
+              "deadband": 0.16,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "H",
+              "mode": "AboveValue",
+              "setpointA": 10,
+              "priority": "Medium",
+              "label": "Pression refoulement : seuil haut (10 bar)",
+              "deadband": 0.16,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "L",
+              "mode": "BelowValue",
+              "setpointA": 1,
+              "priority": "Medium",
+              "label": "Pression refoulement : seuil bas (1 bar)",
+              "deadband": 0.16,
+              "deadbandMode": "Absolute"
+            }
+          ]
+        },
+        {
+          "name": "FT_120",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]II68",
+          "dataType": "Float4",
+          "documentation": "Débit refoulement (électromagnétique)",
+          "engUnit": "m³/h",
+          "engLow": 0,
+          "engHigh": 250,
+          "scaleMode": "Linear",
+          "rawLow": 0,
+          "rawHigh": 27648,
+          "scaledLow": 0,
+          "scaledHigh": 250,
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "L",
+              "mode": "BelowValue",
+              "setpointA": 20,
+              "priority": "Medium",
+              "label": "Débit refoulement (électromagnétique) : seuil bas (20 m³/h)",
+              "deadband": 2.5,
+              "deadbandMode": "Absolute"
+            }
+          ]
+        },
+        {
+          "name": "ANTI_BELIER",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "Ignition OPC UA Server",
+          "opcItemPath": "ns=1;s=[SP12_API1]IX1.3",
+          "dataType": "Boolean",
+          "documentation": "Réservoir anti-bélier pression basse",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 1,
+              "priority": "Medium",
+              "label": "Réservoir anti-bélier pression basse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chloration",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "AT_201",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_Mesures.AT_201",
+          "dataType": "Float4",
+          "documentation": "Chlore libre en sortie",
+          "engUnit": "mg/l",
+          "engLow": 0,
+          "engHigh": 2,
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "HH",
+              "mode": "AboveValue",
+              "setpointA": 1.2,
+              "priority": "Critical",
+              "label": "Chlore libre en sortie : seuil très haut (1.2 mg/l)",
+              "deadband": 0.02,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "H",
+              "mode": "AboveValue",
+              "setpointA": 0.8,
+              "priority": "Medium",
+              "label": "Chlore libre en sortie : seuil haut (0.8 mg/l)",
+              "deadband": 0.02,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "L",
+              "mode": "BelowValue",
+              "setpointA": 0.2,
+              "priority": "Medium",
+              "label": "Chlore libre en sortie : seuil bas (0.2 mg/l)",
+              "deadband": 0.02,
+              "deadbandMode": "Absolute"
+            },
+            {
+              "name": "LL",
+              "mode": "BelowValue",
+              "setpointA": 0.1,
+              "priority": "Critical",
+              "label": "Chlore libre en sortie : seuil très bas (0.1 mg/l)",
+              "deadband": 0.02,
+              "deadbandMode": "Absolute"
+            }
+          ]
+        },
+        {
+          "name": "FT_201",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_Mesures.FT_201",
+          "dataType": "Float4",
+          "documentation": "Débit eau traitée",
+          "engUnit": "m³/h",
+          "engLow": 0,
+          "engHigh": 250,
+          "readOnly": true
+        },
+        {
+          "name": "DP_201_MAR",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_IO.DP_201_MAR",
+          "dataType": "Boolean",
+          "documentation": "Pompe doseuse en marche",
+          "readOnly": true
+        },
+        {
+          "name": "DP_201_DEF",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_IO.DP_201_DEF",
+          "dataType": "Boolean",
+          "documentation": "Pompe doseuse en défaut",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 1,
+              "priority": "High",
+              "label": "Pompe doseuse en défaut"
+            }
+          ]
+        },
+        {
+          "name": "LSL_202",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_IO.LSL_202",
+          "dataType": "Boolean",
+          "documentation": "Niveau bas bidon d'hypochlorite",
+          "readOnly": true,
+          "alarms": [
+            {
+              "name": "Alarme",
+              "mode": "Equality",
+              "setpointA": 1,
+              "priority": "Medium",
+              "label": "Niveau bas bidon d'hypochlorite"
+            }
+          ]
+        },
+        {
+          "name": "DP_201_CMD",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_IO.DP_201_CMD",
+          "dataType": "Boolean",
+          "documentation": "Commande pompe doseuse"
+        },
+        {
+          "name": "DP_201_CONS",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_Mesures.DP_201_CONS",
+          "dataType": "Float4",
+          "documentation": "Consigne de dosage",
+          "engUnit": "%",
+          "engLow": 0,
+          "engHigh": 100
+        },
+        {
+          "name": "CL_CONS",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "CODESYS",
+          "opcItemPath": "ns=4;s=|var|CODESYS Control Win V3 x64.Application.GVL_IO.CL_CONS",
+          "dataType": "Float4",
+          "documentation": "Consigne de chlore libre",
+          "engUnit": "mg/l",
+          "engLow": 0,
+          "engHigh": 2
+        }
+      ]
+    }
+  ]
+}

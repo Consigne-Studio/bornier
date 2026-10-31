@@ -1,0 +1,46 @@
+# Contrat de licence d’utilisation de Bornier
+
+Version du 24 octobre 2026. Éditeur : l’éditeur de Bornier, sous la marque Consigne, identifié sur la page du produit et dans le reçu d’achat (« l’éditeur »).
+
+## 1. Objet
+
+Ce contrat définit les conditions d’utilisation du logiciel Bornier (« le logiciel »), outil de saisie et de contrôle de listes d’entrées et sorties et de génération de fichiers d’import. En installant ou en utilisant le logiciel, vous acceptez ce contrat.
+
+## 2. Essai
+
+Le logiciel peut être utilisé gratuitement pendant 30 jours pour l’évaluer, toutes fonctions ouvertes. À la fin de l’essai, ou à l’échéance d’une licence, les projets restent lisibles et modifiables et peuvent être enregistrés ; seule la génération des fichiers d’export est fermée.
+
+## 3. Licences
+
+* **Licence poste** : utilisation par une personne, sur un poste de travail, pendant un an à compter de la date d’achat. La clé peut être activée deux fois, pour permettre un changement de poste.
+* **Licence bureau** : utilisation par une même société, sur 10 postes au plus, pendant un an à compter de la date d’achat. La clé peut être activée vingt fois.
+
+La licence est personnelle à l’acheteur (personne morale ou physique) et ne peut être cédée, louée ni revendue. Les fichiers produits avec le logiciel (projets, exports) appartiennent à l’utilisateur et peuvent être remis à ses clients sans restriction. Les mises à jour de la version 1.x publiées pendant la durée de la licence sont incluses.
+
+## 4. Restrictions
+
+Il est interdit de contourner le contrôle de licence, de distribuer une clé à des tiers, ou de proposer le logiciel comme service hébergé à des tiers. La décompilation n’est permise que dans les limites prévues par la loi.
+
+## 5. Données
+
+Le logiciel traite les fichiers sur le poste de l’utilisateur. Aucune donnée de projet n’est transmise à l’éditeur ni à un tiers. La seule requête réseau est la vérification de la clé de licence auprès de Gumroad, une fois, au moment de l’activation ; elle transmet la clé et rien d’autre. Les postes sans accès à Internet s’activent par un fichier préparé sur un autre poste.
+
+## 6. Garantie et responsabilité
+
+Le logiciel est un outil d’aide à la conception. Les fichiers qu’il produit doivent être relus et essayés par un professionnel avant toute mise en service : le logiciel n’agit pas sur le procédé et ne remplace ni l’analyse fonctionnelle, ni les essais, ni le jugement de l’automaticien. Il est fourni en l’état ; l’éditeur s’engage à corriger les défauts reproductibles signalés pendant la durée de la licence. Sauf faute lourde ou disposition légale contraire, la responsabilité de l’éditeur est limitée au montant payé pour la licence en cours.
+
+## 7. Remboursement
+
+L’achat peut être remboursé sur simple demande dans les 14 jours qui suivent, via le reçu Gumroad.
+
+## 8. Marques
+
+WinCC, TIA Portal et SIMATIC sont des marques de Siemens AG ; Ignition est une marque d’Inductive Automation ; CODESYS est une marque de CODESYS GmbH ; Kepware et KEPServerEX sont des marques de PTC Inc. Le logiciel n’est affilié à aucun de ces éditeurs ; leurs noms ne servent qu’à désigner des formats de fichiers compatibles.
+
+## 9. Composants tiers
+
+Electron et Chromium (licence MIT et licences de Chromium, fichiers fournis dans le dossier d’installation), Preact (MIT), ExcelJS (MIT), polices Archivo, Martian Mono et Atkinson Hyperlegible Next (SIL Open Font License 1.1).
+
+## 10. Droit applicable
+
+Droit français. Contact : l’adresse de support indiquée sur la page du produit et dans le reçu d’achat.

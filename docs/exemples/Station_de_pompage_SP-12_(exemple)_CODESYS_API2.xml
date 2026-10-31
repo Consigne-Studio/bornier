@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="Bornier" productName="Bornier" productVersion="1.0" creationDateTime="2026-10-24T08:00:00" />
+  <contentHeader name="Station de pompage SP-12 (exemple) - API2" modificationDateTime="2026-10-24T08:00:00">
+    <coordinateInfo>
+      <fbd><scaling x="1" y="1" /></fbd>
+      <ld><scaling x="1" y="1" /></ld>
+      <sfc><scaling x="1" y="1" /></sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous>
+      <pou name="PRG_Bornier" pouType="program">
+        <interface />
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Généré par Bornier à partir du projet « Station de pompage SP-12 (exemple) ». Ne pas modifier : régénéré à chaque export. *)
+(* Appeler PRG_Bornier à chaque cycle de la tâche principale. *)
+
+(* Mise à l'échelle des entrées analogiques *)
+GVL_Mesures.AT_201 := (INT_TO_REAL(GVL_IO.AT_201_BRUT) - 0.0) * ((2.0 - 0.0) / (32767.0 - 0.0)) + 0.0;
+GVL_Mesures.FT_201 := (INT_TO_REAL(GVL_IO.FT_201_BRUT) - 0.0) * ((250.0 - 0.0) / (32767.0 - 0.0)) + 0.0;
+
+(* Seuils d'alarme *)
+GVL_Alarmes.AT_201_HH := GVL_Mesures.AT_201 &gt;= 1.2 OR (GVL_Alarmes.AT_201_HH AND GVL_Mesures.AT_201 &gt; 1.18);
+GVL_Alarmes.AT_201_H := GVL_Mesures.AT_201 &gt;= 0.8 OR (GVL_Alarmes.AT_201_H AND GVL_Mesures.AT_201 &gt; 0.78);
+GVL_Alarmes.AT_201_L := GVL_Mesures.AT_201 &lt;= 0.2 OR (GVL_Alarmes.AT_201_L AND GVL_Mesures.AT_201 &lt; 0.22);
+GVL_Alarmes.AT_201_LL := GVL_Mesures.AT_201 &lt;= 0.1 OR (GVL_Alarmes.AT_201_LL AND GVL_Mesures.AT_201 &lt; 0.12);
+
+(* Mise à l'échelle des sorties analogiques *)
+GVL_IO.DP_201_CONS_BRUT := REAL_TO_INT(LIMIT(0.0, (GVL_Mesures.DP_201_CONS - 0.0) * ((32767.0 - 0.0) / (100.0 - 0.0)) + 0.0, 32767.0));
+</xhtml>
+          </ST>
+        </body>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/globalvars" handleUnknown="implementation">
+      <globalVars name="GVL_IO">
+        <variable name="AT_201_BRUT" address="%IW0">
+          <type><INT /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Chlore libre en sortie | brut 0..32767 = 0..2 mg/l | carte AI2 voie 0</xhtml></documentation>
+        </variable>
+        <variable name="FT_201_BRUT" address="%IW1">
+          <type><INT /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Débit eau traitée | brut 0..32767 = 0..250 m³/h | carte AI2 voie 1</xhtml></documentation>
+        </variable>
+        <variable name="DP_201_MAR" address="%IX4.0">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pompe doseuse en marche | carte DI2 voie 0</xhtml></documentation>
+        </variable>
+        <variable name="DP_201_DEF" address="%IX4.1">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pompe doseuse en défaut | carte DI2 voie 1</xhtml></documentation>
+        </variable>
+        <variable name="LSL_202" address="%IX4.2">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Niveau bas bidon d'hypochlorite | carte DI2 voie 2</xhtml></documentation>
+        </variable>
+        <variable name="DP_201_CMD" address="%QX2.0">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Commande pompe doseuse | carte DO2 voie 0</xhtml></documentation>
+        </variable>
+        <variable name="DP_201_CONS_BRUT" address="%QW0">
+          <type><INT /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Consigne de dosage | brut 0..32767 = 0..100 % | carte AO2 voie 0</xhtml></documentation>
+        </variable>
+        <variable name="CL_CONS">
+          <type><REAL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Consigne de chlore libre | mg/l | 0..2</xhtml></documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+            <Attributes>
+              <Attribute Name="qualified_only" Value="" />
+            </Attributes>
+          </data>
+        </addData>
+      </globalVars>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/globalvars" handleUnknown="implementation">
+      <globalVars name="GVL_Mesures">
+        <variable name="AT_201">
+          <type><REAL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Chlore libre en sortie | mg/l | 0..2 | carte AI2 voie 0</xhtml></documentation>
+        </variable>
+        <variable name="FT_201">
+          <type><REAL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Débit eau traitée | m³/h | 0..250 | carte AI2 voie 1</xhtml></documentation>
+        </variable>
+        <variable name="DP_201_CONS">
+          <type><REAL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Consigne de dosage | % | 0..100 | carte AO2 voie 0</xhtml></documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+            <Attributes>
+              <Attribute Name="qualified_only" Value="" />
+            </Attributes>
+          </data>
+        </addData>
+      </globalVars>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/globalvars" handleUnknown="implementation">
+      <globalVars name="GVL_Alarmes">
+        <variable name="AT_201_HH">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Chlore libre en sortie : seuil très haut 1.2 mg/l</xhtml></documentation>
+        </variable>
+        <variable name="AT_201_H">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Chlore libre en sortie : seuil haut 0.8 mg/l</xhtml></documentation>
+        </variable>
+        <variable name="AT_201_L">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Chlore libre en sortie : seuil bas 0.2 mg/l</xhtml></documentation>
+        </variable>
+        <variable name="AT_201_LL">
+          <type><BOOL /></type>
+          <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Chlore libre en sortie : seuil très bas 0.1 mg/l</xhtml></documentation>
+        </variable>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+            <Attributes>
+              <Attribute Name="qualified_only" Value="" />
+            </Attributes>
+          </data>
+        </addData>
+      </globalVars>
+    </data>
+  </addData>
+</project>

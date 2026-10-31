@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bornier : liste d'E/S et base de tags</title>
+<style>
+:root { --process:#D4D7DA; --releve:#F3F4F5; --carter:#9AA0A6; --gris:#5C636A; --graphite:#1B1E21; --signal:#FF6FB5; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--process); color:var(--graphite); font:16px/1.55 "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif; }
+header { background:var(--graphite); color:var(--releve); padding:28px 24px; }
+header .int, main { max-width:980px; margin:0 auto; }
+header .bulle { display:inline-grid; place-items:center; width:64px; height:64px; border:3px solid var(--releve); border-radius:50%; font:700 15px/1.1 ui-monospace, Consolas, monospace; text-align:center; vertical-align:middle; margin-right:16px; }
+header .bulle span { display:block; width:100%; }
+header .bulle span:first-child { border-bottom:3px solid var(--releve); padding-bottom:3px; }
+header h1 { display:inline; font:800 44px/1 "Archivo", "Arial Narrow", sans-serif; font-stretch:62%; text-transform:uppercase; vertical-align:middle; }
+header p { color:var(--carter); margin:12px 0 0; }
+nav { background:var(--releve); border-bottom:1.5px solid var(--graphite); padding:10px 24px; position:sticky; top:0; }
+nav .int { max-width:980px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 16px; font-size:14px; }
+nav a { color:var(--graphite); }
+main { padding:8px 24px 64px; }
+h2 { font:800 30px/1 "Archivo", "Arial Narrow", sans-serif; font-stretch:62%; text-transform:uppercase; margin:48px 0 12px; padding-bottom:8px; border-bottom:1.5px solid var(--graphite); }
+h3 { font-size:18px; margin:24px 0 6px; }
+img { max-width:100%; display:block; outline:1.5px solid var(--graphite); margin:12px 0 4px; }
+figcaption { font-size:13px; color:var(--gris); margin-bottom:12px; }
+code, kbd, .mono { font-family:ui-monospace, Consolas, "Cascadia Mono", monospace; font-size:.9em; }
+kbd { border:1px solid var(--carter); background:var(--releve); padding:0 4px; }
+table { border-collapse:collapse; width:100%; background:var(--releve); font-size:14px; margin:8px 0; }
+th, td { text-align:left; padding:6px 10px; border-bottom:1px solid var(--carter); vertical-align:top; }
+th { border-bottom:1.5px solid var(--graphite); }
+.note { background:var(--releve); border-left:4px solid var(--graphite); padding:10px 14px; margin:12px 0; }
+.err { display:inline-block; background:var(--signal); padding:0 6px; font-size:12px; font-weight:700; }
+.avt { display:inline-block; border:1px dashed var(--graphite); padding:0 6px; font-size:12px; }
+</style>
+</head>
+<body>
+<header><div class="int">
+  <span class="bulle"><span>AUT</span><span>510</span></span><h1>Guide de Bornier</h1>
+  <p>Liste d'E/S et base de tags · version 1.0 · exports WinCC Unified, Ignition, CODESYS et Kepware</p>
+</div></header>
+<section style="background:var(--releve);border-bottom:1.5px solid var(--graphite);padding:18px 24px"><div style="max-width:980px;margin:0 auto">
+<p style="margin:0 0 8px;font-size:18px"><b>Essai gratuit de 30 jours</b>, toutes fonctions ouvertes, sans compte ni carte.</p>
+<p style="margin:0"><a id="telecharger" href="#" style="display:inline-block;background:var(--graphite);color:var(--releve);padding:8px 14px;text-decoration:none">Télécharger Bornier 1.0 (Windows, Linux)</a>
+&nbsp; <a href="https://gumroad.com/l/bornier-liste-es">Acheter une licence (1 200 € HT par poste et par an)</a> &nbsp; <a id="formats" href="#">Formats d'export et leur provenance</a></p>
+</div></section>
+<script>
+(function () {
+  var compte = location.hostname.endsWith('.github.io') ? location.hostname.split('.')[0] : null;
+  var depot = compte ? 'https://github.com/' + compte + '/bornier' : null;
+  document.getElementById('telecharger').href = depot ? depot + '/releases/latest' : '../../releases/latest';
+  document.getElementById('formats').href = depot ? depot + '/blob/main/docs/FORMATS.md' : 'FORMATS.md';
+  var f = document.querySelector('a[href="FORMATS.md"]:not(#formats)'); if (f && depot) f.href = depot + '/blob/main/docs/FORMATS.md';
+})();
+</script>
+<nav><div class="int">
+  <a href="#installer">Installer</a><a href="#demarrer">Démarrer</a><a href="#saisir">Saisir</a><a href="#importer">Importer</a><a href="#automates">Automates</a><a href="#controles">Contrôles</a><a href="#revisions">Révisions</a><a href="#exporter">Exporter</a><a href="#licence">Licence</a><a href="#faq">Questions</a>
+</div></nav>
+<main>
+
+<h2 id="installer">Installer</h2>
+<p><b>Windows 10 ou 11 (64 bits)</b> : lancez <code>Bornier-Setup-1.0.0.exe</code>. L'installation se fait dans votre profil, sans droits administrateur (vous pouvez choisir un autre dossier). Les fichiers <code>.bornier</code> s'ouvrent ensuite d'un double clic.</p>
+<p>L'installeur n'est pas encore signé : Windows SmartScreen peut afficher « Windows a protégé votre ordinateur ». Cliquez sur <b>Informations complémentaires</b> puis <b>Exécuter quand même</b>. Pour vérifier le fichier, comparez son empreinte avec <code>SHA256SUMS.txt</code> : <code>certutil -hashfile Bornier-Setup-1.0.0.exe SHA256</code>.</p>
+<p><b>Linux (x86_64)</b> : rendez le fichier <code>Bornier-1.0.0-x86_64.AppImage</code> exécutable (<code>chmod +x</code>) puis lancez-le.</p>
+<p>Bornier fonctionne hors ligne. Il ne se connecte à Internet qu'une fois, pour activer une clé de licence.</p>
+
+<h2 id="demarrer">Démarrer</h2>
+<figure><img src="guide/accueil.png" alt="Page d'accueil de Bornier"><figcaption>La page d'accueil : nouveau projet, ouverture, import d'une liste Excel ou projet d'exemple.</figcaption></figure>
+<p>Le plus rapide pour découvrir l'outil : <b>Ouvrir l'exemple</b>. C'est une station de pompage fictive avec deux automates (un Siemens S7-1500 et un automate CODESYS), 32 signaux et deux révisions déjà diffusées. Tout ce qui est décrit ici peut y être essayé sans risque.</p>
+<p>Un projet Bornier est un seul fichier <code>.bornier</code> : la liste, les automates, les réglages et toutes les révisions figées. C'est du JSON lisible, rangé un signal par bloc : suivi dans Git, chaque modification apparaît ligne à ligne.</p>
+
+<h2 id="saisir">Saisir la liste</h2>
+<figure><img src="guide/signaux.png" alt="Vue Signaux"><figcaption>La vue Signaux : la grille, et à droite la fiche du signal courant avec ce que reçoit chaque outil cible.</figcaption></figure>
+<p>La grille se manie comme un tableur. Une ligne est un signal : repère, libellé, zone, nature (DI, DO, AI, AO ou MEM pour une variable mémoire), type, automate, adresse, câblage (armoire, carte, voie, bornier), échelle (min, max, unité), seuils d'alarme LL, L, H, HH, alarme d'état et priorité.</p>
+<table>
+<tr><th>Touche</th><th>Effet</th></tr>
+<tr><td>Frappe directe, <kbd>Entrée</kbd> ou <kbd>F2</kbd></td><td>Modifie la cellule ; <kbd>Entrée</kbd> valide et descend, <kbd>Tab</kbd> valide et passe à droite, <kbd>Échap</kbd> annule</td></tr>
+<tr><td>Flèches, <kbd>Maj</kbd>+flèches, <kbd>Ctrl</kbd>+flèches</td><td>Déplace, étend la sélection, va au bord de la liste</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Copier et coller avec Excel. Un collage plus long que la liste ajoute des lignes (vue non filtrée et non triée). Une seule valeur collée remplit toute la sélection.</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>Recopie en série la première ligne de la sélection : repères et adresses sont incrémentés (<code>P101</code> → <code>P102</code>, <code>%I0.7</code> → <code>%I1.0</code>)</td></tr>
+<tr><td><kbd>Suppr</kbd></td><td>Vide les cellules sélectionnées</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Annuler, rétablir (200 étapes)</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>F</kbd></td><td>Recherche dans les repères, libellés et adresses</td></tr>
+</table>
+<p>Le bouton <b>Fiche</b> masque ou affiche le panneau de droite, pour voir plus de colonnes. Le bouton <b>Série…</b> crée d'un coup plusieurs signaux de même nature avec des repères et des adresses qui se suivent. <b>Dupliquer</b> copie les lignes sélectionnées. Les filtres (nature, automate, anomalies) et le tri par clic sur un en-tête ne changent pas l'ordre enregistré.</p>
+<p>Le type se déduit de la nature (BOOL pour une entrée ou sortie TOR, INT pour une analogique) et reste modifiable. Les seuils et l'échelle sont en unités physiques : la conversion vers les valeurs brutes de la carte est faite par Bornier pour chaque cible.</p>
+
+<h2 id="importer">Importer une liste existante</h2>
+<figure><img src="guide/import.png" alt="Dialogue d'import"><figcaption>L'import : les colonnes du fichier sont reconnues par leur nom, la correspondance reste modifiable, l'aperçu montre le résultat.</figcaption></figure>
+<p>Fichier › Importer (<kbd>Ctrl</kbd>+<kbd>I</kbd>) accepte les classeurs <code>.xlsx</code> et <code>.xlsm</code> et les fichiers <code>.csv</code> ou <code>.txt</code> (séparateur et encodage détectés). Bornier trouve la ligne d'en-tête et associe les colonnes d'après leurs noms usuels en français, en anglais ou dans TIA Portal (« Mnémonique », « Désignation », « Logical Address », « Data Type »…). Vérifiez la correspondance, choisissez l'automate par défaut, puis :</p>
+<ul>
+<li><b>Fusionner par repère</b> : pour les signaux déjà présents, seules les colonnes associées remplacent les valeurs existantes (une liste qui n'a que repère et libellé ne touche ni aux adresses ni aux seuils) ; les nouveaux signaux sont ajoutés ;</li>
+<li><b>Remplacer toute la liste</b> : la liste du projet est remplacée (les révisions figées sont gardées).</li>
+</ul>
+<p>Les valeurs non reconnues (nature, nombre, priorité) sont listées sous l'aperçu. Un import s'annule d'un <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</p>
+
+<h2 id="automates">Automates</h2>
+<figure><img src="guide/automates.png" alt="Vue Automates"><figcaption>Chaque automate fixe la syntaxe des adresses et la façon dont la supervision s'y connecte.</figcaption></figure>
+<ul>
+<li><b>Famille</b> : Siemens S7-1200 / S7-1500 (adresses à l'octet : <code>%I0.0</code>, <code>%IW64</code>, <code>%DB10.DBD4</code>) ou CODESYS V3 (adresses à l'élément : <code>%IX0.0</code>, <code>%IW2</code>, <code>%MD10</code>).</li>
+<li><b>Plage brute</b> : valeurs de la carte pour le bas et le haut d'échelle (0 à 27 648 pour les cartes Siemens, 0 à 32 767 par défaut ailleurs).</li>
+<li><b>Connexion WinCC</b>, <b>appareil Ignition / Kepware</b>, <b>serveur OPC</b> et <b>modèle de chemin OPC</b> : les noms tels qu'ils existent dans vos projets de supervision.</li>
+<li>CODESYS : <b>nom de l'automate dans l'OPC UA CODESYS</b>, le segment qui suit <code>|var|</code> dans les nœuds du serveur OPC UA (par défaut <code>CODESYS Control Win V3 x64</code> ; recopiez celui que montre votre client OPC UA).</li>
+<li>CODESYS : nom de la GVL des E/S, et <b>mise à l'échelle</b> dans l'automate (programme ST généré) ou dans la supervision.</li>
+</ul>
+<p>Renommer un automate met à jour tous ses signaux ; un identifiant déjà pris est refusé. Changer la famille ne convertit pas les adresses : Bornier le rappelle, et la vue Contrôles signale celles qui ne conviennent plus.</p>
+
+<h2 id="controles">Contrôles</h2>
+<figure><img src="guide/signaux-anomalie.png" alt="Une anomalie dans la grille"><figcaption>Une entrée TOR adressée en <code>%Q</code> : la cellule est marquée, la fiche explique pourquoi, la barre d'état compte l'erreur.</figcaption></figure>
+<p>La liste est contrôlée à chaque frappe. Les <span class="err">erreurs</span> bloquent les exports : un fichier d'import faux coûte plus cher qu'un export retardé. Les <span class="avt">points à vérifier</span> ne bloquent rien.</p>
+<table>
+<tr><th>Erreurs (bloquantes)</th><th>Points à vérifier</th></tr>
+<tr><td>Repère manquant, non conforme IEC 61131-3 (lettres, chiffres, <code>_</code>, pas de mot réservé) ou en double<br>Automate inconnu ou non renseigné<br>Type incompatible avec la nature (un TOR doit être BOOL)<br>Adresse manquante, non reconnue, dans la mauvaise zone (<code>%I</code> pour une entrée, <code>%Q</code> pour une sortie), de taille incompatible avec le type, ou en double<br>Voie de carte câblée deux fois<br>Échelle invalide (min ≥ max)<br>Seuils sur un signal TOR, seuils dans le désordre (LL &lt; L &lt; H &lt; HH)<br>Alarme d'état sur un signal non BOOL<br>Automate sans identifiant ou en double, nom de GVL invalide, plage brute invalide</td>
+<td>Libellé vide (il sert de commentaire et de texte d'alarme)<br>Adresses qui se chevauchent (ex. <code>%IW0</code> et <code>%IX0.3</code>)<br>Échelle non renseignée sur une analogique<br>Unité manquante<br>Seuil hors de l'échelle<br>Entrée physique ouverte en écriture<br>Variable interne placée dans la zone des E/S<br>Accès absolu à un DB Siemens (<code>%DB10.DBD0</code>) : WinCC Unified exige alors un bloc de données non optimisé</td></tr>
+</table>
+<figure><img src="guide/controles.png" alt="Vue Contrôles"><figcaption>La vue Contrôles regroupe les anomalies par type ; un clic mène à la cellule.</figcaption></figure>
+
+<h3>Hystérésis des alarmes de seuil</h3>
+<p>Vue Projet : par défaut 1 % de l'échelle. Une alarme haute apparaît au seuil et ne disparaît que lorsque la mesure redescend du seuil moins l'hystérésis, ce qui évite qu'un signal bruité batte autour du seuil. Elle est appliquée dans le programme CODESYS généré et dans les alarmes Ignition ; pour WinCC Unified, réglez l'hystérésis dans les propriétés des alarmes analogiques après import.</p>
+
+<h2 id="revisions">Révisions et écarts</h2>
+<figure><img src="guide/revisions.png" alt="Vue Révisions"><figcaption>Comparaison de la révision A avec l'état en cours du projet d'exemple.</figcaption></figure>
+<p>À chaque diffusion (revue client, mise en service, recette), <b>figez une révision</b> : code (A, B… ou V1, V2…), auteur, commentaire. Le projet garde une copie complète de la liste à cette date. L'en-tête affiche « Rév. B + modifs » dès que la liste a changé depuis la dernière révision.</p>
+<p>La comparaison entre deux révisions, ou entre une révision et l'état en cours, liste les ajouts, les suppressions et les modifications champ par champ. <b>Exporter en Excel</b> en fait un rapport à joindre à la diffusion.</p>
+
+<h2 id="exporter">Exporter</h2>
+<figure><img src="guide/exports.png" alt="Vue Exports"><figcaption>Choisissez les cibles et le dossier, puis générez.</figcaption></figure>
+<p>Vue Exports (<kbd>Ctrl</kbd>+<kbd>E</kbd>) : cochez les cibles, choisissez le dossier, cliquez sur <b>Générer</b>. Chaque cible n'exporte que les signaux qui la concernent. Le détail des formats et de leur provenance est dans <a href="FORMATS.md">FORMATS.md</a>.</p>
+<figure><img src="guide/exports-fichiers.png" alt="Fichiers générés"><figcaption>Le compte rendu : fichiers écrits, tailles et marche à suivre pour chaque outil.</figcaption></figure>
+<h3>WinCC Unified (TIA Portal)</h3>
+<ol>
+<li>Importez d'abord la table de variables API (<code>…_TIA_PLCTags.xlsx</code>) dans l'automate : Variables API › Importer.</li>
+<li>Puis les variables IHM (<code>…_WinCC_HMITags.xlsx</code>) : Variables IHM › Importer, et les alarmes (<code>…_WinCC_HMIAlarms.xlsx</code>) : Alarmes IHM › Importer.</li>
+</ol>
+<p class="note"><b>Mode gabarit, recommandé.</b> Les colonnes attendues par TIA Portal varient selon sa version et la langue du projet. Exportez une fois les variables et les alarmes de votre propre projet, et donnez ces fichiers à Bornier (boutons <b>Gabarit HMI tags…</b> et <b>Gabarit HMI alarms…</b>) : il recopie leur en-tête à l'identique.</p>
+<h3>Ignition 8.1 et 8.3</h3>
+<p>Designer › Tag Browser › bouton d'import › <b>Import Tags</b>, choisissez le fichier JSON et le fournisseur de tags. Les tags arrivent dans un dossier au nom du projet, un sous-dossier par zone. Les analogiques mises à l'échelle par Ignition sont déclarées en <code>Float4</code>, pour que la valeur physique ne soit pas tronquée ; les alarmes de seuil portent l'hystérésis réglée dans la vue Projet.</p>
+<h3>CODESYS V3</h3>
+<p>Projet › <b>Importer PLCopenXML</b> : GVL des E/S avec adresses, GVL des mesures et des alarmes, programme <code>PRG_Bornier</code> (mise à l'échelle, seuils avec hystérésis). Appelez <code>PRG_Bornier</code> au début de la tâche principale. Le fichier <code>…_texte.st</code> contient le même code à copier-coller.</p>
+<h3>Kepware</h3>
+<p>Clic droit sur l'appareil › <b>Import CSV</b>, un fichier par appareil. Le nom de l'appareil est celui saisi dans la vue Automates.</p>
+<h3>Liste Excel</h3>
+<p>Une liste d'E/S mise en page pour le client (liste, bilan par nature et par automate, historique des révisions), prête à imprimer en A3 paysage.</p>
+
+<h2 id="licence">Licence</h2>
+<figure><img src="guide/licence.png" alt="Vue Licence"><figcaption>Essai, activation par clé, activation d'un poste sans Internet.</figcaption></figure>
+<p>L'essai dure 30 jours, toutes fonctions ouvertes. Ensuite, sans licence, vos projets restent lisibles, modifiables et enregistrables : seuls les exports sont fermés.</p>
+<p>La licence est annuelle, à compter de la date d'achat : <b>Poste</b> (1 poste) ou <b>Bureau</b> (10 postes). Collez la clé reçue par e-mail dans la vue Licence et cliquez sur <b>Activer</b> : Bornier vérifie la clé une seule fois auprès de Gumroad, puis fonctionne hors ligne jusqu'à l'échéance.</p>
+<p><b>Poste sans Internet</b> : sur un poste connecté où Bornier est installé, saisissez la clé et cliquez sur <b>Préparer un fichier d'activation</b>. Copiez le fichier sur le poste isolé et cliquez sur <b>Activer avec un fichier</b>.</p>
+<p>Chaque clé s'active deux fois par poste acheté (pour un changement de PC). Pour libérer un ancien poste, écrivez au support.</p>
+
+<h2 id="faq">Questions fréquentes</h2>
+<h3>Mes données quittent-elles mon poste ?</h3>
+<p>Non. Les projets et les exports restent sur votre disque. La seule requête réseau est la vérification de la clé, qui ne transmet que la clé.</p>
+<h3>TIA Portal refuse le classeur d'import des variables IHM</h3>
+<p>Utilisez le mode gabarit (voir <a href="#exporter">Exporter</a>) avec un export de votre propre projet. Vérifiez aussi que la table de variables API a été importée avant, et que le nom de connexion saisi dans la vue Automates existe dans votre IHM.</p>
+<h3>Ignition crée les tags mais ils sont en qualité « Bad »</h3>
+<p>Le chemin OPC ne correspond pas à votre serveur. Dans la vue Automates, ajustez le nom de l'appareil, le serveur OPC ou le modèle de chemin (variables <code>{appareil}</code>, <code>{automate_opc}</code>, <code>{gvl}</code>, <code>{repere}</code>, <code>{adresse}</code>, <code>{s7}</code>), puis réexportez et réimportez en choisissant « Overwrite » comme politique de collision.</p>
+<h3>Pourquoi deux adresses différentes se « chevauchent » ?</h3>
+<p>Un mot occupe deux octets : <code>%IW0</code> (Siemens) couvre <code>%I0.0</code> à <code>%I1.7</code>. En CODESYS, <code>%IW2</code> couvre les octets 4 et 5, donc <code>%IX4.0</code> à <code>%IX5.7</code>. C'est parfois voulu (lecture d'un mot d'état bit à bit), d'où un simple point à vérifier.</p>
+<h3>Puis-je travailler à plusieurs sur un projet ?</h3>
+<p>Le fichier <code>.bornier</code> se range dans Git ou un dossier partagé ; son format ligne à ligne rend les fusions lisibles. Bornier ne gère pas l'édition simultanée du même fichier.</p>
+<h3>Quelle est la taille maximale d'une liste ?</h3>
+<p>La grille est virtualisée. Une liste de 10 000 signaux est contrôlée en quelques dizaines de millisecondes et exportée vers les quatre cibles en environ une seconde et demie sur un PC courant.</p>
+<h3>Ma licence arrive à échéance</h3>
+<p>Bornier prévient 30 jours avant. Achetez une nouvelle licence et activez la nouvelle clé ; vos projets ne changent pas.</p>
+
+<h2 id="support">Support</h2>
+<p>L'adresse du support figure dans votre reçu Gumroad et sur la page du produit ; réponse sous deux jours ouvrés, par e-mail. Joignez la version de Bornier (menu Aide › À propos) et, si possible, le fichier <code>.bornier</code> ou l'export qui pose problème. Un export d'une version de TIA Portal, d'Ignition ou de Kepware qui ne s'importe pas est le meilleur des signalements : il sert à corriger le format pour tous.</p>
+</main>
+</body>
+</html>

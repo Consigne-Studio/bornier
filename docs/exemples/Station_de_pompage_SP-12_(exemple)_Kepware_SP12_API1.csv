@@ -1,0 +1,25 @@
+﻿Tag Name,Address,Data Type,Respect Data Type,Client Access,Scan Rate,Scaling,Raw Low,Raw High,Scaled Low,Scaled High,Scaled Data Type,Clamp Low,Clamp High,Eng Units,Description,Negate Value
+P101_MAR,I0.0,Boolean,1,RO,100,,,,,,,,,,Pompe P101 en marche,0
+P101_DEF,I0.1,Boolean,1,RO,100,,,,,,,,,,Pompe P101 défaut thermique,0
+P101_AUTO,I0.2,Boolean,1,RO,100,,,,,,,,,,Pompe P101 en automatique,0
+P102_MAR,I0.3,Boolean,1,RO,100,,,,,,,,,,Pompe P102 en marche,0
+P102_DEF,I0.4,Boolean,1,RO,100,,,,,,,,,,Pompe P102 défaut thermique,0
+P102_AUTO,I0.5,Boolean,1,RO,100,,,,,,,,,,Pompe P102 en automatique,0
+LSHH_101,I0.6,Boolean,1,RO,100,,,,,,,,,,Niveau très haut bâche (poire),0
+LSLL_101,I0.7,Boolean,1,RO,100,,,,,,,,,,"Niveau très bas bâche (poire), contact NF",0
+ARU_ACT,I1.0,Boolean,1,RO,100,,,,,,,,,,Arrêt d'urgence actionné,0
+ALIM_OK,I1.1,Boolean,1,RO,100,,,,,,,,,,Présence tension 24 V,0
+P101_CMD,Q0.0,Boolean,1,R/W,100,,,,,,,,,,Commande pompe P101,0
+P102_CMD,Q0.1,Boolean,1,R/W,100,,,,,,,,,,Commande pompe P102,0
+KLAX_CMD,Q0.2,Boolean,1,R/W,100,,,,,,,,,,Avertisseur sonore,0
+LT_101,IW64,Short,1,RO,100,Linear,0,27648,0,5,Double,1,1,m,Niveau bâche de pompage,0
+PT_110,IW66,Short,1,RO,100,Linear,0,27648,0,16,Double,1,1,bar,Pression refoulement,0
+FT_120,IW68,Short,1,RO,100,Linear,0,27648,0,250,Double,1,1,m³/h,Débit refoulement (électromagnétique),0
+IT_101,IW70,Short,1,RO,100,Linear,0,27648,0,40,Double,1,1,A,Intensité pompe P101,0
+IT_102,IW72,Short,1,RO,100,Linear,0,27648,0,40,Double,1,1,A,Intensité pompe P102,0
+SC_101,QW64,Short,1,R/W,100,Linear,0,27648,0,100,Double,1,1,%,Consigne de vitesse variateur P101,0
+TPS_P101,MD100,Float,1,RO,100,,,,,,,,,h,Temps de marche cumulé P101,0
+TPS_P102,MD104,Float,1,RO,100,,,,,,,,,h,Temps de marche cumulé P102,0
+NB_DEM_P101,DB10.DBD0,Long,1,RO,100,,,,,,,,,,Nombre de démarrages P101,0
+ANTI_BELIER,I1.3,Boolean,1,RO,100,,,,,,,,,,Réservoir anti-bélier pression basse,0
+TT_130,IW74,Short,1,RO,100,Linear,0,27648,-20,60,Double,1,1,°C,Température local pompes,0
